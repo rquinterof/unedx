@@ -24,7 +24,7 @@ function dump($data) {
 $oferta_anual = array(
 					"anio" => "",
 					"last_update" => date("d-m-Y H:i:s"),
-					"oferta_anual" => array()
+					"oferta" => array()
 				);
 
 //dump($oferta_anual);
