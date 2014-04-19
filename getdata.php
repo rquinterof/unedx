@@ -1,7 +1,5 @@
 <?php
 
-error_reporting(E_ALL);
-
 include('scrap/simple_html_dom.php');
 
 function dump($data) {
@@ -23,14 +21,21 @@ function dump($data) {
 
 $oferta_anual = array(
 					"anio" => "",
+					"title" => "",
 					"last_update" => date("d-m-Y H:i:s"),
 					"oferta" => array()
+					
 				);
 
 //dump($oferta_anual);
 
 // Create DOM from URL or file
 $html = file_get_html('http://www.uned.ac.cr/index.php/periodo-academico/62-oferta-anual-de-asignaturas/564-2014-oferta-anual-de-asignaturas');
+
+foreach($html->find('title') as $element){ 
+	// obtener el titulo de la pagina
+	$oferta_anual["title"] = $element->innertext;
+}
 
 $i=0; $j=0;
 
