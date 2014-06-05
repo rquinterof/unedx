@@ -69,7 +69,7 @@ foreach($html->find('td') as $element){
 
 //dump($oferta_anual);
 
-$data["data"] = $oferta_anual;
+$data["datas"] = $oferta_anual;
 
 header('Content-Type: text/json');
 header('Cache-Control: no-cache, must-revalidate');
