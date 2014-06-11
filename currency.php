@@ -18,8 +18,21 @@
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    <style>
+    	body{
+            background-color: #333;
+            color: #999;
+            
+        }
+        xmp{
+            font-family: 'Open Sans', sans-serif;
+            font-size: 11px;
+        }
+    </style>
+    
     </head>
-    <body>
+<body>
         
     
 <?php
@@ -83,26 +96,29 @@
 	//echo strlen($variablee);
 
 	//echo "<code>".substr($variablee,40090,-3656)."</code>";
-	$showoff = array("align='right' style='color:Black;background-color:White;font-family:Arial;font-size:10pt;'","align='left' style='color:White;'","align='right' style='color:Black;background-color:#DFEDFF;font-family:Arial;font-size:10pt;'"," align='left'","style='color:#000066;background-color:White;font-size:XX-Small;'","\n\r","align='right'");
-	$res = str_replace("\"", "'", substr($variablee,40090,-3656)); //do it manually
+	$showoff = array("align='right' style='color:Black;background-color:White;font-family:Arial;font-size:10pt;'","align='left' style='color:White;'","align='right' style='color:Black;background-color:#DFEDFF;font-family:Arial;font-size:10pt;'"," align='left'","style='color:#000066;background-color:White;font-size:XX-Small;'","\n\r","align='right'","  ");
+	$res = str_replace("\"", "'", substr($variablee,40869,-3664)); //do it manually
 	$res = str_replace($showoff,"",$res);
+	$array_from_to = array (
+                             '</tr>' => '<||>',
+                             '</td>' => '<|>',
+        					 '<tr>'  => '',
+        					 '<td>'  => '',
+        					 '<tr >' => ''
+                            );
+	$res = strtr($res,$array_from_to);
 	$purge = (string)$res;
 
 	echo "<xmp>".$purge."</xmp>";
 
 	// vamos a cortar el archivo
-	/*
-	$rest = substr("abcdef", -1);    // returns "f"
-    $rest = substr("abcdef", -2);    // returns "ef"
-    $rest = substr("abcdef", -3, 1); // returns "d"	
-    */
 	
-	/*
-	$fran = file_get_html($source)->plaintext;
-    $html = new simple_html_dom();
-    $html->load($fran);
-	echo $html;
-    */
+
+	echo "<hr>";
+
+	//$html = new simple_html_dom();
+	//$html = str_get_html(htmlentities($purge));
+	//dump($html);	
 
 	echo "<hr>";
 	
@@ -110,7 +126,7 @@
 	$DOM->validateOnParse = true;
    		//$DOM->loadHTML("<div id='fran' style='background-color: #333;'>hello world</div>");
 		//echo $DOM->getElementById("fran")->nodeValue;
-	$DOM-loadHTML($purge);
+	//$DOM-loadHTML($purge);
 	
 	//dump($variablee);
 
