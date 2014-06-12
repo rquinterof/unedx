@@ -56,7 +56,7 @@
       return $data;
     }
 
-	function dot($string){if($_GET["dot"]=='true'){ return str_replace(",",".",$string);}else{ return $string;}}
+	function dot($string){if(isset($_GET["dot"])=='true'){ return str_replace(",",".",$string);}else{ return $string;}}
 
     $variablee = get_data($source);
     //echo $variablee;
@@ -157,7 +157,10 @@
      3- todovia no se
      */
 
-    echo json_encode($data, JSON_PRETTY_PRINT);
+    
+     echo json_encode($data);
+    
+	
 
 	//echo "<xmp>".$purge."</xmp>";
 
