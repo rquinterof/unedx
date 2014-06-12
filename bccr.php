@@ -21,7 +21,7 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
     <script>
-        function PostsCtrlAjax($scope, $http) {
+        function exchange($scope, $http) {
             $http({
                 method: 'POST',
                 url: 'exchange.php'
@@ -37,12 +37,13 @@
             
         }
     
-    
+    		
+        
     </style>
 </head>
 
 <body>
-    <div id="ng-app" ng-app ng-controller="PostsCtrlAjax" class="container">
+    <div id="ng-app" ng-app ng-controller="exchange" class="container">
 
         <div ng-repeat="post in posts">
             <h3>
