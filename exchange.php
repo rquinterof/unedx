@@ -1,43 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<title>Busqueda de oferta académica</title>
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-	
-	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-
-    <style>
-    	body{
-            background-color: #333;
-            color: #999;
-            
-        }
-        xmp{
-            font-family: 'Open Sans', sans-serif;
-            font-size: 11px;
-        }
-    </style>
-    
-    </head>
-<body>
-        
-    
 <?php
 
     include('scrap/simple_html_dom.php');
+
+	date_default_timezone_set('America/Costa_Rica');
+	$fech = getdate();
 
     function dump($data) {
             if(is_array($data)) { //If the given variable is an array, print using the print_r function.
@@ -104,26 +70,78 @@
                              '</td>' => '<|>',
         					 '<tr>'  => '',
         					 '<td>'  => '',
-        					 '<tr >' => ''
+        					 '<tr >' => '',
+        					 '<td >' => ''
                             );
 	$res = strtr($res,$array_from_to);
-	$purge = (string)$res;
+	$purge = trim(preg_replace('/\s\s+/', '', $res));
+	
+	$dataset = array(
+                        "title" => "CRC<=>USD Currency",
+                        "last_update" => $fech,
+                        "currency" => array()
+                    );
+	
+	$rows = explode("<||>",$purge);
+	//dump(count($rows));
+	
+    //Tipo de Entidad	Entidad Autorizada	Compra	Venta	Diferencial Cambiario	Última Actualización
+	$lasttype = "";    
+	for($i=0;$i<=(count($rows)-3);$i++){
+       $columns = explode("<|>",$rows[$i]); unset($columns[6]);
+        //dump($columns);
+        
+        
+        if($columns[0]!='&nbsp;'){
+        	$lasttype=$columns[0];
+        }
+        
+        if($columns[0]=='&nbsp;'){
+            $dataset["currency"][$i][0]=$lasttype;
+        }else{
+            $dataset["currency"][$i]=$columns;
+        }
+        
+        //$dataset["currency"][$i]=$columns;
+        
+        
+        //dump($rows[$i]);
+       /*
+       for($j=0;$j<=(count($columns)-1);$j++){
+       	//$dataset["currency"][$i]=$columns[$j];
+       }*/
+    } 
+     	
 
-	echo "<xmp>".$purge."</xmp>";
+	$data["data"] = $dataset;
+
+
+	//dump($fech["year"]);
+	// Habilitar para ofrecer el servicio
+	
+    header('Content-Type: text/json');
+    header('Cache-Control: no-cache, must-revalidate');
+    header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+    header('Content-type: application/json');
+    
+
+    echo json_encode($data);
+
+	//echo "<xmp>".$purge."</xmp>";
 
 	// vamos a cortar el archivo
 	
 
-	echo "<hr>";
+	//echo "<hr>";
 
 	//$html = new simple_html_dom();
 	//$html = str_get_html(htmlentities($purge));
 	//dump($html);	
 
-	echo "<hr>";
+	//echo "<hr>";
 	
-	$DOM = new DOMDocument;
-	$DOM->validateOnParse = true;
+	//$DOM = new DOMDocument;
+	//$DOM->validateOnParse = true;
    		//$DOM->loadHTML("<div id='fran' style='background-color: #333;'>hello world</div>");
 		//echo $DOM->getElementById("fran")->nodeValue;
 	//$DOM-loadHTML($purge);
@@ -132,6 +150,3 @@
 
 
 ?>
-        
-        </body>
-    </html>
