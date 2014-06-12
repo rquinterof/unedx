@@ -56,6 +56,8 @@
       return $data;
     }
 
+	function dot($string){if($_GET["dot"]=='true'){ return str_replace(",",".",$string);}else{ return $string;}}
+
     $variablee = get_data($source);
     //echo $variablee;
 
@@ -88,10 +90,25 @@
     //Tipo de Entidad	Entidad Autorizada	Compra	Venta	Diferencial Cambiario	Última Actualización
 	$lasttype = "";    
 	for($i=0;$i<=(count($rows)-3);$i++){
-       $columns = explode("<|>",$rows[$i]); unset($columns[6]);
+       $columns = explode("<|>",$rows[$i]); 
         //dump($columns);
         
-        
+        $j=0;
+        foreach($columns as $value) {
+          //$value['transaction_date'] = date('d/m/Y', $value['transaction_date']);
+          
+          switch($j){
+              case 0: unset($columns[0]); break;// delete the first column - Tipo Entidad
+              case 1: $dataset["exchange"][$i][$j]=$columns[$j]; break;
+              case 2: 
+              case 3:
+              case 4: $dataset["exchange"][$i][$j]=dot($columns[$j]); break;
+              case 5: $dataset["exchange"][$i][$j]=$columns[$j]; break;
+              case 6; unset($columns[6]); break; // for delete last empty
+          }  
+     		$j++;
+        }
+
         /*
         if($columns[0]!='&nbsp;'){
         	$lasttype=$columns[0];
@@ -102,11 +119,17 @@
             $dataset["currency"][$i]=$columns;
         }
         */
-        unset($columns[0]); // delete the first column - Tipo Entidad
         
-        $dataset["exchange"][$i]=$columns;
         
-        str_replace();
+        /*
+        
+        if(isset($_GET["dot"])=='true'){
+            str_replace(".",",",$columns[2]);
+            str_replace(".",",",$columns[3]);
+        }
+        */
+        	//$dataset["exchange"][$i]=$columns;
+        
         //dump($rows[$i]);
        /*
        for($j=0;$j<=(count($columns)-1);$j++){
