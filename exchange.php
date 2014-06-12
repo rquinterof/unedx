@@ -1,6 +1,6 @@
 <?php
 
-    include('scrap/simple_html_dom.php');
+    //include('scrap/simple_html_dom.php');
 
 	date_default_timezone_set('America/Costa_Rica');
 	$fech = getdate();
@@ -65,7 +65,7 @@
 
 	//echo "<code>".substr($variablee,40090,-3656)."</code>";
 	$showoff = array("align='right' style='color:Black;background-color:White;font-family:Arial;font-size:10pt;'","align='left' style='color:White;'","align='right' style='color:Black;background-color:#DFEDFF;font-family:Arial;font-size:10pt;'"," align='left'","style='color:#000066;background-color:White;font-size:XX-Small;'","\n\r","align='right'","  ");
-	$res = str_replace("\"", "'", substr($variablee,40869,-3664)); //do it manually
+	$res = str_replace("\"", "'", substr($variablee,40869,-3664)); //do it manually - ubicacion del contenido
 	$res = str_replace($showoff,"",$res);
 	$array_from_to = array (
                              '</tr>' => '<||>',

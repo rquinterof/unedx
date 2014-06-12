@@ -1,1 +1,1 @@
-parts start apache2
+parts start apache2 mongodb
