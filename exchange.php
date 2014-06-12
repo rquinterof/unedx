@@ -103,6 +103,7 @@
             $dataset["currency"][$i]=$columns;
         }
         */
+        unset($columns[0]);
         
         $dataset["exchange"][$i]=$columns;
         
@@ -134,7 +135,7 @@
      3- todovia no se
      */
 
-    echo json_encode($data);
+    echo json_encode($data, JSON_PRETTY_PRINT);
 
 	//echo "<xmp>".$purge."</xmp>";
 
