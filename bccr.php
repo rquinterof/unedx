@@ -53,7 +53,7 @@
             <p>{{post.description}}</p>
             <img ng-src="{{post.banner}}" />
         </div>
-
+        
     </div>
 </body>
 

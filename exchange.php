@@ -140,6 +140,26 @@
 
 	$data["data"] = $dataset;
 
+	//save this data set
+	// Config
+	/*  
+    $dbhost = 'localhost';  
+    $dbname = 'exchange';  
+
+    // Connect to test database  
+    $m = new Mongo("mongodb://$dbhost");  
+    $db = $m->$dbname;  
+
+    // select the collection  
+    $collection = $db->shows;  
+
+    // pull a cursor query  
+    $cursor = $collection->find();  
+
+	dump($cursor);
+    */
+	
+
 
 	//dump($fech["year"]);
 	// Habilitar para ofrecer el servicio
